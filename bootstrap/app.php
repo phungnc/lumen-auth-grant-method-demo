@@ -23,15 +23,13 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
+
 $app->withFacades();
-
 $app->withEloquent();
-
-$app->configure('app');
-$app->configure('oauth2');
+//$app->configure('app');
+//$app->configure('auth');
+//$app->configure('oauth2');
 $app->configure('secrets');
-//$app->configure('database');
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -72,7 +70,7 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 $app->middleware([
-    \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class
+    \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class,
 ]);
 $app->routeMiddleware([
     'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
@@ -96,6 +94,8 @@ $app->routeMiddleware([
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class);
 $app->register(\LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class);
+$app->register(\Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(\Irazasyed\JwtAuthGuard\JwtAuthGuardServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

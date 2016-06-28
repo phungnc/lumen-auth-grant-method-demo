@@ -10,7 +10,7 @@
  */
 
 return [
-
+      
     /*
     |--------------------------------------------------------------------------
     | Supported Grant Types
@@ -27,6 +27,13 @@ return [
     |
     */
     // 'grant_types' => [
+    //     'client_credentials' => [
+    //         'class' => '\League\OAuth2\Server\Grant\ClientCredentialsGrant',
+    //         'access_token_ttl' => 3600
+    //     ]
+    // ],
+    
+    // 'grant_types' => [
     //     'password' => [
     //         'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
     //         'callback' => function($email, $password) {
@@ -42,16 +49,13 @@ return [
     //             }
     //         },
     //         'access_token_ttl' => 3600
-    //     ]
-    //     // 'refresh_token' => [
-    //     //     'class' => '\League\OAuth2\Server\Grant\RefreshTokenGrant',
-    //     //     'access_token_ttl' => 3600,
-    //     //     'refresh_token_ttl' => 36000
-    //     // ]
-    // ],
+    //     ],
+    // ],  
+    
     'grant_types' => [
-        'client_credentials' => [
-            'class' => '\League\OAuth2\Server\Grant\ClientCredentialsGrant',
+        'password' => [
+            'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
+            'callback' => '\App\PasswordGrantVerifier@verify',
             'access_token_ttl' => 3600
         ]
     ],
